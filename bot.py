@@ -57,11 +57,11 @@ async def on_member_join (member):
 async def help (ctx):
 	await ctx.message.delete()
 	emb = discord.Embed(title = "Список команд данного бота:", colour = discord.Color.dark_orange())
-	emb.add_field(name = '{}vk'.format(settings['PREFIX']), value = 'Ссылка на ВК автора.')
-	emb.add_field(name = '{}telegram'.format(settings['PREFIX']), value = 'Ссылка на телеграм автора.')
-	emb.add_field(name = '{}balance'.format(settings['PREFIX']), value = 'Узнать свой баланс (прсто ничего не указывайте) или баланс определённого пользователя. Пример: &balance @LOX')
-	emb.add_field(name = '{}addition'.format(settings['PREFIX']), value = 'Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
-	emb.add_field(name = '{}balance'.format(settings['PREFIX']), value = 'Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
+	emb.add_field(name = '{}vk'.format(PREFIX), value = 'Ссылка на ВК автора.')
+	emb.add_field(name = '{}telegram'.format(PREFIX), value = 'Ссылка на телеграм автора.')
+	emb.add_field(name = '{}balance'.format(PREFIX), value = 'Узнать свой баланс (прсто ничего не указывайте) или баланс определённого пользователя. Пример: &balance @LOX')
+	emb.add_field(name = '{}addition'.format(PREFIX), value = 'Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
+	emb.add_field(name = '{}balance'.format(PREFIX), value = 'Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
 	await ctx.send(embed = emb)
 
 # Команда показывает количество денег определённого пользователя.
