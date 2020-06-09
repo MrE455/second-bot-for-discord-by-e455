@@ -149,5 +149,12 @@ async def decrease_error (ctx, error):
 		await ctx.message.delete()
 		await ctx.send(f'{ctx.author.mention}, у вас не достаточно прав для использования данной команды.')
 
+@help.error
+
+async def help_error (ctx, error):
+	if isinstance(error, commands.MissingPermissions):
+		await ctx.message.delete()
+		await ctx.send(f'{ctx.author.name}, у вас не достаточно прав для использования данной команды.')
+
 # Запуск бота.
 client.run(token)
