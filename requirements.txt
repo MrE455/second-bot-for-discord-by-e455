@@ -1,0 +1,5 @@
+discord.py
+sqlite3
+aiohttp
+websockets
+chardet
