@@ -2,11 +2,15 @@ from config import settings
 import discord
 from discord.ext import commands
 import sqlite3
+import os
+
+PREFIX = '&'
+token = os.environ.get('TOKEN')
 
 # Устанавливаем префикс благодаря которым будут обозначаться команды.
 # Удаляем встроенную команду "help" для дальнейшего создания своей команды.
 
-client = commands.Bot(command_prefix = settings['PREFIX'])
+client = commands.Bot(command_prefix = PREFIX)
 client.remove_command('help')
 
 # Даёт возможность работать с ошибками.
@@ -146,4 +150,4 @@ async def decrease_error (ctx, error):
 		await ctx.send(f'{ctx.author.mention}, у вас не достаточно прав для использования данной команды.')
 
 # Запуск бота.
-client.run(settings['TOKEN'])
+client.run(token)
