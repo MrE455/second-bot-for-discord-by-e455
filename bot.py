@@ -85,9 +85,7 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 	
 	if member is None or amount > 1000000 or amount < 1:
 		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег.")
-		if amount is None:
-			await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег.")
-			
+		
 	else:
 		cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
 		connection.commit()
@@ -142,6 +140,10 @@ async def addition_error (ctx, error):
 	if isinstance(error, commands.MissingPermissions):
 		await ctx.message.delete()
 		await ctx.send(f'{ctx.author.mention}, у вас не достаточно прав для использования данной команды.')
+	if isinstance(error, commands.MissingRequiredArgument):
+		await ctx.message.delete()
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег.")
+		
 
 @decrease.error
 
