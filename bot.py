@@ -83,9 +83,11 @@ async def balance (ctx, member: discord.Member = None):
 async def addition (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if member is None or amount > 1000000 or amount < 1 or amount is None:
+	if member is None or amount > 1000000 or amount < 1:
 		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег.")
-	
+		if amount is None:
+			await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег.")
+			
 	else:
 		cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
 		connection.commit()
