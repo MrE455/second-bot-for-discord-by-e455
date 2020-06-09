@@ -53,6 +53,7 @@ async def on_member_join (member):
 # Команда help.
 
 @client.command()
+@commands.has_permissions(administrator = True)
 
 async def help (ctx):
 	await ctx.message.delete()
