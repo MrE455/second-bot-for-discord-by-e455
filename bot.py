@@ -84,7 +84,7 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
 	if member is None or amount > 1000000 or amount < 1:
-		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег (не превышаюшее одного миллиона!).")
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег (не превышающее одного миллиона!).")
 		
 	else:
 		cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
