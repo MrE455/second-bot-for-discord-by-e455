@@ -12,12 +12,6 @@ token = os.environ.get('TOKEN')
 client = commands.Bot(command_prefix = PREFIX)
 client.remove_command('help')
 
-# Даёт возможность работать с ошибками.
-@client.event
-
-async def on_command_error (ctx, error):
-	pass
-
 # Подключение базы данных и создание переменной для управления базы данных.
 connection = sqlite3.connect('server.db')
 cursor = connection.cursor()
@@ -83,9 +77,14 @@ async def balance (ctx, member: discord.Member = None):
 
 async def addition (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
-	cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
-	connection.commit()
-	await ctx.send("Зачисление {}$ на баланс пользователя {} успешно выполнено.".format(amount, member.mention))
+	
+	if member is None or amount > 1000000 or amount < 1:
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег (не превышающее одного миллиона!).")
+	
+	else:
+		cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
+		connection.commit()
+		await ctx.send("Зачисление {}$ на баланс пользователя {} успешно выполнено.".format(amount, member.mention))
 
 # Команда позволяющая убавить определённое количество денег.
 @client.command()
@@ -94,7 +93,10 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 async def decrease (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if amount == 666:
+	if member is None or amount < 1:
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите убавить денег.")
+
+	elif amount == 666:
 		cursor.execute("UPDATE users SET cash = {} WHERE id = {}".format(0, member.id))
 		connection.commit()
 		await ctx.send("Вывод всех денег с баланса пользователя {} успешно выполнен.".format(member.mention))
@@ -125,36 +127,6 @@ async def telegram (ctx):
 	emb.set_thumbnail(url = 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Telegram_Messenger.png')
 	emb.add_field(name = "Имя:", value = "@mr_e455")
 	await ctx.send(embed = emb)
-
-# Работа с ошибками.
-@addition.error
-
-async def addition_error (ctx, error):
-	if isinstance(error, commands.MissingPermissions):
-		await ctx.message.delete()
-		await ctx.send(f'{ctx.author.mention}, у вас не достаточно прав для использования данной команды.')
-	
-	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.message.delete()
-		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег (не превышающее одного миллиона!).")
-
-@decrease.error
-
-async def decrease_error (ctx, error):
-	if isinstance(error, commands.MissingPermissions):
-		await ctx.message.delete()
-		await ctx.send(f'{ctx.author.mention}, у вас не достаточно прав для использования данной команды.')
-	
-	if isinstance(error, commands.MissingRequiredArgument):
-		await ctx.message.delete()
-		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите убавить денег, и количество денег.")
-
-@help.error
-
-async def help_error (ctx, error):
-	if isinstance(error, commands.MissingPermissions):
-		await ctx.message.delete()
-		await ctx.send(f'{ctx.author.name}, у вас не достаточно прав для использования данной команды.')
 
 # Запуск бота.
 client.run(token)
