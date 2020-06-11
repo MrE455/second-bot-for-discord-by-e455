@@ -78,13 +78,17 @@ async def balance (ctx, member: discord.Member = None):
 async def addition (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if member is None or amount > 1000000 or amount < 1:
-		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите добавить денег, и количество денег (не превышающее одного миллиона!).")
-	
+	if member is None:
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите добавить денег.")
+
 	else:
-		cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
-		connection.commit()
-		await ctx.send("Зачисление {}$ на баланс пользователя {} успешно выполнено.".format(amount, member.mention))
+		if or amount > 1000000 or amount < 1 or amount is None:
+			await ctx.send(f"**{ctx.author.mention}**, укажите количество денег.")
+	
+		else:
+			cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
+			connection.commit()
+			await ctx.send("Зачисление {}$ на баланс пользователя {} успешно выполнено.".format(amount, member.mention))
 
 # Команда позволяющая убавить определённое количество денег.
 @client.command()
@@ -93,18 +97,22 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 async def decrease (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if member is None or amount < 1:
-		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя, которому хотите убавить денег.")
+	if member is None:
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите убавить денег.")
 
-	elif amount == 666:
-		cursor.execute("UPDATE users SET cash = {} WHERE id = {}".format(0, member.id))
-		connection.commit()
-		await ctx.send("Вывод всех денег с баланса пользователя {} успешно выполнен.".format(member.mention))
-	
-	else:
-		cursor.execute("UPDATE users SET cash = cash - {} WHERE id = {}".format(amount, member.id))
-		connection.commit()
-		await ctx.send("Вывод {}$ с баланса пользователя {} успешно выполнен.".format(amount, member.mention))
+	esle:
+		if amount < 1 or amount is None:
+			await ctx.send(f"**{ctx.author.mention}**, укажите количестов денег.")
+
+		elif amount == 666:
+			cursor.execute("UPDATE users SET cash = {} WHERE id = {}".format(0, member.id))
+			connection.commit()
+			await ctx.send("Вывод всех денег с баланса пользователя {} успешно выполнен.".format(member.mention))
+
+		else:
+			cursor.execute("UPDATE users SET cash = cash - {} WHERE id = {}".format(amount, member.id))
+			connection.commit()
+			await ctx.send("Вывод {}$ с баланса пользователя {} успешно выполнен.".format(amount, member.mention))
 
 # Ссылка на Вк.
 @client.command()
