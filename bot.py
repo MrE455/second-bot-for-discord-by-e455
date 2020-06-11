@@ -75,7 +75,7 @@ async def balance (ctx, member: discord.Member = None):
 @client.command()
 @commands.has_permissions(kick_members = True)
 
-async def addition (ctx, member: discord.Member = None, amount: int = None):
+async def addition (ctx, member: discord.Member = None, amount: int = 0):
 	await ctx.message.delete()
 	
 	if member is None:
@@ -94,7 +94,7 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 @client.command()
 @commands.has_permissions(kick_members = True)
 
-async def decrease (ctx, member: discord.Member = None, amount: int = None):
+async def decrease (ctx, member: discord.Member = None, amount: int = 0):
 	await ctx.message.delete()
 	
 	if member is None:
