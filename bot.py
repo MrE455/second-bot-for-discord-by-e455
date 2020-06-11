@@ -82,7 +82,7 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите добавить денег.")
 
 	else:
-		if or amount > 1000000 or amount < 1:
+		if amount > 1000000 or amount < 1:
 			await ctx.send(f"**{ctx.author.mention}**, укажите количество денег.")
 	
 		else:
