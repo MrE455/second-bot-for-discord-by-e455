@@ -65,7 +65,7 @@ async def help (ctx):
 async def balance (ctx, member: discord.Member = None):
 	await ctx.message.delete()
 	
-	if member == None:
+	if member is None:
 		await ctx.send(embed = discord.Embed(description = f"""Ваш баланс составляет: **{cursor.execute("SELECT cash FROM users WHERE id = {}".format(ctx.author.id)).fetchone()[0]}**$"""))
 	
 	else:
