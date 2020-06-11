@@ -79,11 +79,11 @@ async def addition (ctx, member: discord.Member = None, amount: int = 0):
 	await ctx.message.delete()
 	
 	if member is None:
-		await ctx.send(f"**{ctx.author}**, укажите пользователя которому хотите добавить денег.")
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите добавить денег.")
 
 	else:
 		if amount > 1000000 or amount < 1:
-			await ctx.send(f"**{ctx.author}**, укажите количество денег.")
+			await ctx.send(f"**{ctx.author.mention}**, укажите количество денег.")
 	
 		else:
 			cursor.execute("UPDATE users SET cash = cash + {} WHERE id = {}".format(amount, member.id))
@@ -98,11 +98,11 @@ async def decrease (ctx, member: discord.Member = None, amount: int = 0):
 	await ctx.message.delete()
 	
 	if member is None:
-		await ctx.send(f"**{ctx.author}**, укажите пользователя которому хотите убавить денег.")
+		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите убавить денег.")
 
 	else:
 		if amount < 1:
-			await ctx.send(f"**{ctx.author}**, укажите количестов денег.")
+			await ctx.send(f"**{ctx.author.mention}**, укажите количестов денег.")
 
 		elif amount == 666:
 			cursor.execute("UPDATE users SET cash = {} WHERE id = {}".format(0, member.id))
