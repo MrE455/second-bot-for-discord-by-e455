@@ -78,7 +78,7 @@ async def balance (ctx, member: discord.Member = None):
 async def addition (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if member == None:
+	if member is None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите добавить денег.")
 
 	else:
@@ -97,7 +97,7 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 async def decrease (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if member == None:
+	if member is None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите убавить денег.")
 
 	else:
