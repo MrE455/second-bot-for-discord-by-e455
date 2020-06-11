@@ -65,7 +65,7 @@ async def help (ctx):
 async def balance (ctx, member: discord.Member = None):
 	await ctx.message.delete()
 	
-	if member is None:
+	if member == None:
 		await ctx.send(embed = discord.Embed(description = f"""Ваш баланс составляет: **{cursor.execute("SELECT cash FROM users WHERE id = {}".format(ctx.author.id)).fetchone()[0]}**$"""))
 	
 	else:
@@ -78,11 +78,11 @@ async def balance (ctx, member: discord.Member = None):
 async def addition (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if member is None:
+	if member == None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите добавить денег.")
 
 	else:
-		if or amount > 1000000 or amount < 1 or amount is None:
+		if or amount > 1000000 or amount < 1:
 			await ctx.send(f"**{ctx.author.mention}**, укажите количество денег.")
 	
 		else:
@@ -97,11 +97,11 @@ async def addition (ctx, member: discord.Member = None, amount: int = None):
 async def decrease (ctx, member: discord.Member = None, amount: int = None):
 	await ctx.message.delete()
 	
-	if member is None:
+	if member == None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите пользователя которому хотите убавить денег.")
 
-	esle:
-		if amount < 1 or amount is None:
+	else:
+		if amount < 1:
 			await ctx.send(f"**{ctx.author.mention}**, укажите количестов денег.")
 
 		elif amount == 666:
