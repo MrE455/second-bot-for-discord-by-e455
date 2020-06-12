@@ -124,7 +124,7 @@ async def exchange_rates (ctx, amount = None):
 	await ctx.message.delete()
 
 	if amount == 'dollar':
-		DOLLAR_URL = "https://www.google.com/search?newwindow=1&sxsrf=ALeKk03Id-D1EeNnX2Bem0aCwsdEAYKy-g%3A1591963090621&ei=0m3jXrukJe2prgSEhq34CA&q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA%D1%83%D1%80%D1%81&oq=%D0%B4%D0%BE+%D0%BA%D1%83%D1%80%D1%81&gs_lcp=CgZwc3ktYWIQAxgAMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB46BAgAEEdQtfcBWMf8AWC_ggJoAHABeACAAWOIAbkBkgEBMpgBAKABAaoBB2d3cy13aXo&sclient=psy-ab"
+		DOLLAR_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE&aqs=chrome.0.69i59j69i57j0l5j69i60.4236j1j7&sourceid=chrome&ie=UTF-8"
 		DOLLAR_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
 		dollar_page = requests.get(DOLLAR_URL, headers = DOLLAR_HEADERS)
@@ -136,7 +136,7 @@ async def exchange_rates (ctx, amount = None):
 		await ctx.send("Один доллар равен " + dollar + " рублей.")
 
 	elif amount == 'euro':
-		EURO_URL = "https://www.google.com/search?newwindow=1&sxsrf=ALeKk01SxSDMdISX1kxgb39vKCt4qJBJ7A%3A1591963070625&ei=vm3jXs6-JcWWjgbbtb6IBw&q=%D0%B5%D0%B2%D1%80%D0%BE+%D0%BA%D1%83%D1%80%D1%81&oq=%D1%83%D0%B2%D1%80%D0%BE+%D0%BA%D1%83%D1%80%D1%81&gs_lcp=CgZwc3ktYWIQAxgAMgcIIxCxAhAnMgQIABAKMgQIABBDMgQIABAKMgQIABAKMgQIABAKMgQIABAKMgQIABAKMgQIABAKMgQIABAKOgYIABAHEB46AggAOggIABAHEAoQHjoGCAAQDRAKOggIABAIEAcQHjoICAAQBxAFEB5Q-oYBWPaKAWCzkgFoAHAAeACAAWqIAZUDkgEDMS4zmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab"
+		EURO_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%83&aqs=chrome.2.69i57j0l7.4295j0j7&sourceid=chrome&ie=UTF-8"
 		EURO_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
 		euro_page = requests.get(EURO_URL, headers = EURO_HEADERS)
@@ -148,7 +148,7 @@ async def exchange_rates (ctx, amount = None):
 		await ctx.send("Один евро равен " + euro + " рублей.")
 
 	elif amount == 'bitcoin':
-		BITCOIN_URL = "https://www.google.com/search?newwindow=1&sxsrf=ALeKk006QTBP99dDEUT5Zkk9RtZR3MWqQw%3A1591963034647&ei=mm3jXp31JuXGrgTAs5-YBg&q=%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD+%D0%BA%D1%83%D1%80%D1%81&oq=%D0%B1+%D0%BA%D1%83%D1%80%D1%81&gs_lcp=CgZwc3ktYWIQAxgAMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIECAAQDTIGCAAQBxAeMgQIABANMgYIABAHEB4yBggAEAcQHjoECCMQJzoECAAQQzoKCAAQsQMQFBCHAjoICAAQBxAKEB46CQgjECcQRhCCAlDe8gFY34YCYJ6PAmgCcAB4AIABlAGIAZkEkgEDMy4ymAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab"
+		BITCOIN_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82&aqs=chrome.0.69i59j69i57j0l6.6197j0j7&sourceid=chrome&ie=UTF-8"
 		BITCOIN_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
 		bitcoin_page = requests.get(BITCOIN_URL, headers = BITCOIN_HEADERS)
@@ -160,7 +160,7 @@ async def exchange_rates (ctx, amount = None):
 		await ctx.send("Один биткоин равен " + bitcoin + " рублей.")
 
 	elif amount == 'hryvnia':
-		HRYVNIA_URL = "https://www.google.com/search?newwindow=1&sxsrf=ALeKk02fDsjNFXnhRA1FrCONc0zZW7xkNA%3A1591963002884&ei=em3jXtmsNcLrrgSsnbqYBw&q=%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D0%B0+%D0%BA%D1%83%D1%80%D1%81&oq=%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D0%B0+%D0%BA%D1%83%D1%80%D1%81&gs_lcp=CgZwc3ktYWIQAxgAMgoIABCxAxAUEIcCMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeOgQIABANOggIABAKEAIQKjoECCMQJzoECAAQQzoFCAAQsQNQydABWIPlAWDq7AFoAXAAeACAAekBiAGFCJIBBTUuMy4xmAEAoAEBqgEHZ3dzLXdpeg&sclient=psy-ab"
+		HRYVNIA_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D1%8B&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80&aqs=chrome.0.69i59j69i57j0l6.14705j0j7&sourceid=chrome&ie=UTF-8"
 		HRYVNIA_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
 		hryvnia_page = requests.get(HRYVNIA_URL, headers = HRYVNIA_HEADERS)
@@ -172,7 +172,7 @@ async def exchange_rates (ctx, amount = None):
 		await ctx.send("Одина гравна равна " + hryvnia + " рублей.")
 
 	elif amount == 'shekel':
-		SHEKEL_URL = "https://www.google.com/search?newwindow=1&sxsrf=ALeKk03csbj4NK0MoJzgq1lpNIlpN1fUCA%3A1591962961570&ei=UW3jXo-uIorqrgSzqI_YAg&q=%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8C+%D0%BA%D1%83%D1%80%D1%81&oq=%D1%88%D0%B5%D0%BA+%D0%BA%D1%83%D1%80%D1%81&gs_lcp=CgZwc3ktYWIQAxgAMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB46BAgAEEc6BAgjECc6BAgAEEM6CggAELEDEBQQhwI6BQgAELEDUO-fAliItAJgkbkCaABwAXgAgAGYAYgBswaSAQM1LjOYAQCgAQGqAQdnd3Mtd2l6&sclient=psy-ab"
+		SHEKEL_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8F&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5&aqs=chrome.0.69i59j69i57j69i61l2.13899j1j7&sourceid=chrome&ie=UTF-8"
 		SHEKEL_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
 		shekel_page = requests.get(SHEKEL_URL, headers = SHEKEL_HEADERS)
@@ -184,7 +184,7 @@ async def exchange_rates (ctx, amount = None):
 		await ctx.send("Один шекель равен " + shekel + " рублей.")
 
 	elif amount == 'tenge':
-		TENGE_URL = "https://www.google.com/search?newwindow=1&sxsrf=ALeKk00ncLGTG5v2rFkCFuPIN9SlYEAf-g%3A1591962789427&ei=pWzjXurdGenErgSriq3oCA&q=%D1%82%D0%B5%D0%BD%D0%B3%D0%B5+%D0%BA%D1%83%D1%80%D1%81&oq=%D1%82%D0%B5%D0%BD%D0%B3%D0%B5+%D0%BA%D1%83%D1%80%D1%81&gs_lcp=CgZwc3ktYWIQAxgAMgQIABBDMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeMgYIABAHEB4yBggAEAcQHjIGCAAQBxAeOggIABAHEAoQHlDZpgpY46wKYKKzCmgAcAB4AIABeIgBggSSAQMzLjKYAQCgAQGqAQdnd3Mtd2l6&sclient=psy-ab"
+		TENGE_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD%D0%B3%D0%B5&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD&aqs=chrome.0.69i59j69i57j0l6.3036j0j7&sourceid=chrome&ie=UTF-8"
 		TENGE_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
 		tenge_page = requests.get(TENGE_URL, headers = TENGE_HEADERS)
