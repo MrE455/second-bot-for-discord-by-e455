@@ -136,7 +136,7 @@ async def exchange_rates (ctx, amount = None):
 		await ctx.send("Один доллар равен " + dollar + " рублей.")
 
 	elif amount == 'euro':
-		EURO_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&aqs=chrome..69i57j0l7.2879j1j7&sourceid=chrome&ie=UTF-8"
+		EURO_URL = "https://www.google.com/search?q=%D0%B5%D0%B2%D1%80%D0%BE+%D0%BA%D1%83%D1%80%D1%81&oq=%D0%B5%D0%B2%D1%80%D0%BE&aqs=chrome.1.69i57j0l6j69i60.2228j0j7&sourceid=chrome&ie=UTF-8"
 		EURO_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
 		euro_page = requests.get(EURO_URL, headers = EURO_HEADERS)
@@ -179,7 +179,7 @@ async def exchange_rates (ctx, amount = None):
 		shekel_soup = BeautifulSoup(shekel_page.content, 'html.parser')
 		
 		shekel_convert = shekel_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		shekel = convert[0].text
+		shekel = shekel_convert[0].text
 		
 		await ctx.send("Один шекель равен " + shekel + " рублей.")
 
