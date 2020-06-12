@@ -127,6 +127,7 @@ async def decrease (ctx, member: discord.Member = None, amount: int = 0):
 
 async def dollar (ctx):
 	await ctx.message.delete()
+	
 	URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE&aqs=chrome.0.69i59j69i57j0l5j69i60.4236j1j7&sourceid=chrome&ie=UTF-8"
 	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
@@ -134,9 +135,8 @@ async def dollar (ctx):
 	soup = BeautifulSoup(full_page.content, 'html.parser')
 		
 	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-	dollar = convert[0].text
 		
-	await ctx.send("Один доллар равен " + dollar + " рублей.")
+	await ctx.send("Один доллар равен " + convert[0].text + " рублей.")
 
 '''
 # Показывает курс евро.
