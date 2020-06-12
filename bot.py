@@ -59,7 +59,7 @@ async def help (ctx):
 	emb.add_field(name = '{}balance'.format(PREFIX), value = 'Узнать свой баланс (прсто ничего не указывайте) или баланс определённого пользователя. Пример: &balance @LOX')
 	emb.add_field(name = '{}addition'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
 	emb.add_field(name = '{}decrease'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
-	emb.add_field(name = '{}exchange_rates'.format(PREFIX), value = 'Показать курс определённой валюты на сегодня. Список доступных валют: доллар, евро, биткоин, тенге, гривна, шекель. Пример: &exchange_rates шекель')
+	emb.add_field(name = '{}exchange_rates'.format(PREFIX), value = 'Показать курс определённой валюты на сегодня. Список доступных валют: dollar, euro, bitcoin, tenge, hryvnia, shekel. Пример: &exchange_rates shekel')
 	await ctx.send(embed = emb)
 
 # Команда показывает количество денег определённого пользователя.
@@ -123,7 +123,7 @@ async def decrease (ctx, member: discord.Member = None, amount: int = 0):
 async def exchange_rates (ctx, amount = None):
 	await ctx.message.delete()
 
-	if amount == 'доллар':
+	if amount == 'dollar':
 		URL = "https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+&aqs=chrome.1.69i57j0l7.9112j1j7&sourceid=chrome&ie=UTF-8"
 		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
@@ -135,7 +135,7 @@ async def exchange_rates (ctx, amount = None):
 		
 		await ctx.send("Один доллар равен " + currency + " рублей.")
 
-	elif amount == 'евро':
+	elif amount == 'euro':
 		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&aqs=chrome..69i57j0l7.2879j1j7&sourceid=chrome&ie=UTF-8"
 		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
@@ -147,7 +147,7 @@ async def exchange_rates (ctx, amount = None):
 		
 		await ctx.send("Один евро равен " + currency + " рублей.")
 
-	elif amount == 'биткоин':
+	elif amount == 'bitcoin':
 		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82&aqs=chrome.0.0j69i57j0l6.3514j1j7&sourceid=chrome&ie=UTF-8"
 		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
@@ -159,7 +159,7 @@ async def exchange_rates (ctx, amount = None):
 		
 		await ctx.send("Один биткоин равен " + currency + " рублей.")
 
-	elif amount == 'гривна':
+	elif amount == 'hryvnia':
 		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D1%8B&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80&aqs=chrome.1.69i57j0l7.6041j0j7&sourceid=chrome&ie=UTF-8"
 		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
@@ -171,7 +171,7 @@ async def exchange_rates (ctx, amount = None):
 		
 		await ctx.send("Одина гравна равна " + currency + " рублей.")
 
-	elif amount == 'шекель':
+	elif amount == 'shekel':
 		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8F&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5&aqs=chrome.1.69i57j0l7.4277j1j7&sourceid=chrome&ie=UTF-8"
 		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
@@ -183,7 +183,7 @@ async def exchange_rates (ctx, amount = None):
 		
 		await ctx.send("Один шекель равен " + currency + " рублей.")
 
-	elif amount == 'тенге':
+	elif amount == 'tenge':
 		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD%D0%B3%D0%B5&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5&aqs=chrome.1.69i57j0l7.2317j1j7&sourceid=chrome&ie=UTF-8"
 		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
