@@ -7,10 +7,11 @@ import requests
 
 PREFIX = '&'
 token = os.environ.get('TOKEN')
+URL = "https://www.banki.ru/products/currency/cb/"
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 
 # Устанавливаем префикс благодаря которым будут обозначаться команды.
 # Удаляем встроенную команду "help" для дальнейшего создания своей команды.
-
 client = commands.Bot(command_prefix = PREFIX)
 client.remove_command('help')
 
@@ -59,6 +60,18 @@ async def help (ctx):
 	emb.add_field(name = '{}balance'.format(PREFIX), value = 'Узнать свой баланс (прсто ничего не указывайте) или баланс определённого пользователя. Пример: &balance @LOX')
 	emb.add_field(name = '{}addition'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
 	emb.add_field(name = '{}decrease'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
+	emb.add_field(name = '{}USD'.format(PREFIX), value = 'Показать курс доллара США. Пример: &USD')
+	emb.add_field(name = '{}EUR'.format(PREFIX), value = 'Показать курс евро. Пример: &EUR')
+	emb.add_field(name = '{}BYN'.format(PREFIX), value = 'Показать курс белорусского рубля. Пример: &BYN')
+	emb.add_field(name = '{}KZT'.format(PREFIX), value = 'Показать курс казахского тенге. Пример: &KZT')
+	emb.add_field(name = '{}PLN'.format(PREFIX), value = 'Показать курс польского злотого. Пример: &PLN')
+	emb.add_field(name = '{}UAH'.format(PREFIX), value = 'Показать курс украинской гривны. Пример: &UAH')
+	emb.add_field(name = '{}GBR'.format(PREFIX), value = 'Показать курс фунта стерлингов Соединённого королевства. Пример: &GBR')
+	emb.add_field(name = '{}CHF'.format(PREFIX), value = 'Показать курс швейцарского франка. Пример: &CHF')
+	emb.add_field(name = '{}JPY'.format(PREFIX), value = 'Показать курс японской иены. Пример: &JPY')
+	emb.add_field(name = '{}CZK'.format(PREFIX), value = 'Показать курс чешской кроны. Пример: &CZK')
+	emb.add_field(name = '{}TRY'.format(PREFIX), value = 'Показать курс турецкой лиры. Пример: &TRY')
+	emb.add_field(name = '{}CNY'.format(PREFIX), value = 'Показать курс китайской юань. Пример: &CNY')
 	await ctx.send(embed = emb)
 
 # Команда показывает количество денег определённого пользователя.
@@ -141,14 +154,122 @@ async def telegram (ctx):
 # Показывает курс доллара.
 @client.command()
 
-async def dollar (ctx):
+async def USD (ctx):
 	await ctx.message.delete()
-	DR = "https://www.banki.ru/products/currency/cb/"
-	headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-	page = requests.get(DR,headers = headers)
+	page = requests.get(URL, headers = HEADERS)
 	soup = BS(page.content, 'html.parser')
 	convert = soup.findAll("td")
-	await ctx.send("Один доллар равен " + convert[3].text + "рублей.")
+	await ctx.send("Один доллар равен " + convert[3].text + " рублей.")
+
+# Показывает курс евро.
+@client.command()
+
+async def EUR (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Один евро равен " + convert[8].text + " рублей.")
+
+# Показать курс белорусского рубля.
+@client.command()
+
+async def BYN (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Один белорусский рубль равен " + convert[29].text + " рублей.")
+
+# Показать курс тенге.
+@client.command()
+
+async def KZT (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Один казахский тенге равен " + convert[69].text + " рублей.")
+
+# Показать курс польского злотого.
+@client.command()
+
+async def PLN (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Один польский злотый равен " + convert[109].text + " рублей.")
+
+# Показать курс гривны.
+@client.command()
+
+async def UAH (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Одна украинская гривна равна " + convert[139].text + " рублям.")
+
+# Показать курс фунта.
+@client.command()
+
+async def GBR (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Один фунт стерлингов Соединённого королевства равен " + convert[144].text + " рублей.")
+
+# Показать курс франка.
+@client.command()
+
+async def CHF (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Один швейцарский франк равен " + convert[159].text + " рублей.")
+
+# Показать курс иены.
+@client.command()
+
+async def JPY (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Сто японских иен равны " + convert[169].text + " рублям.")
+
+# Показать курс кроны.
+@client.command()
+
+async def CZK (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Десять чешских крон равны " + convert[149].text + " рублям.")
+
+# Показать курс лиры.
+@client.command()
+
+async def TRY (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Одна турецкая лира равна " + convert[129].text + " рублям.")
+
+# Показать курс юань.
+@client.command()
+
+async def CNY (ctx):
+	await ctx.message.delete()
+	page = requests.get(URL, headers = HEADERS)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send("Десять китайских юаней равны " + convert[84].text + " рублям.")
 
 # Запуск бота.
 client.run(token)
