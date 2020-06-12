@@ -138,5 +138,17 @@ async def telegram (ctx):
 	emb.add_field(name = "Имя:", value = "@mr_e455")
 	await ctx.send(embed = emb)
 
+# Показывает курс доллара.
+@client.command()
+
+async def dollar (ctx):
+	await ctx.message.delete()
+	DR = "https://www.banki.ru/products/currency/cb/"
+	headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+	page = requests.get(DR,headers = headers)
+	soup = BS(page.content, 'html.parser')
+	convert = soup.findAll("td")
+	await ctx.send(convert[3].text)
+
 # Запуск бота.
 client.run(token)
