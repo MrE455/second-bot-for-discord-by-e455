@@ -148,7 +148,7 @@ async def dollar (ctx):
 	page = requests.get(DR,headers = headers)
 	soup = BS(page.content, 'html.parser')
 	convert = soup.findAll("td")
-	await ctx.send(convert[3].text)
+	await ctx.send("Один доллар равен " + convert[3].text + "рублей.")
 
 # Запуск бота.
 client.run(token)
