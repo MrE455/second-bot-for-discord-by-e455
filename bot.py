@@ -60,11 +60,11 @@ async def help (ctx):
 	emb.add_field(name = '{}addition'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
 	emb.add_field(name = '{}decrease'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
 	emb.add_field(name = '{}dollar'.format(PREFIX), value = 'Показать курс доллара на сегодня. Пример: &dollar')
-	emb.add_field(name = '{}euro'.format(PREFIX), value = 'Показать курс евро на сегодня. Пример: &euro')
-	emb.add_field(name = '{}bitcoin'.format(PREFIX), value = 'Показать курс биткоина на сегодня. Пример: &bitcoin')
-	emb.add_field(name = '{}hryvnia'.format(PREFIX), value = 'Показать курс гривны на сегодня. Пример: &hryvnia')
-	emb.add_field(name = '{}shekel'.format(PREFIX), value = 'Показать курс шекеля на сегодня. Пример: &shekel')
-	emb.add_field(name = '{}tenge'.format(PREFIX), value = 'Показать курс тенге на сегодня. Пример: &tenge')
+	#emb.add_field(name = '{}euro'.format(PREFIX), value = 'Показать курс евро на сегодня. Пример: &euro')
+	#emb.add_field(name = '{}bitcoin'.format(PREFIX), value = 'Показать курс биткоина на сегодня. Пример: &bitcoin')
+	#emb.add_field(name = '{}hryvnia'.format(PREFIX), value = 'Показать курс гривны на сегодня. Пример: &hryvnia')
+	#emb.add_field(name = '{}shekel'.format(PREFIX), value = 'Показать курс шекеля на сегодня. Пример: &shekel')
+	#emb.add_field(name = '{}tenge'.format(PREFIX), value = 'Показать курс тенге на сегодня. Пример: &tenge')
 	await ctx.send(embed = emb)
 
 # Команда показывает количество денег определённого пользователя.
@@ -138,6 +138,7 @@ async def dollar (ctx):
 		
 	await ctx.send("Один доллар равен " + dollar + " рублей.")
 
+'''
 # Показывает курс евро.
 @client.command()
 
@@ -234,6 +235,7 @@ async def telegram (ctx):
 	emb.set_thumbnail(url = 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Telegram_Messenger.png')
 	emb.add_field(name = "Имя:", value = "@mr_e455")
 	await ctx.send(embed = emb)
+'''
 
 # Запуск бота.
 client.run(token)
