@@ -59,7 +59,12 @@ async def help (ctx):
 	emb.add_field(name = '{}balance'.format(PREFIX), value = 'Узнать свой баланс (прсто ничего не указывайте) или баланс определённого пользователя. Пример: &balance @LOX')
 	emb.add_field(name = '{}addition'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
 	emb.add_field(name = '{}decrease'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
-	emb.add_field(name = '{}exchange_rates'.format(PREFIX), value = 'Показать курс определённой валюты на сегодня. Список доступных валют: dollar, euro, bitcoin, tenge, hryvnia, shekel. Пример: &exchange_rates shekel')
+	emb.add_field(name = '{}dollar'.format(PREFIX), value = 'Показать курс доллара на сегодня. Пример: &dollar')
+	emb.add_field(name = '{}euro'.format(PREFIX), value = 'Показать курс евро на сегодня. Пример: &euro')
+	emb.add_field(name = '{}bitcoin'.format(PREFIX), value = 'Показать курс биткоина на сегодня. Пример: &bitcoin')
+	emb.add_field(name = '{}hryvnia'.format(PREFIX), value = 'Показать курс гривны на сегодня. Пример: &hryvnia')
+	emb.add_field(name = '{}shekel'.format(PREFIX), value = 'Показать курс шекеля на сегодня. Пример: &shekel')
+	emb.add_field(name = '{}tenge'.format(PREFIX), value = 'Показать курс тенге на сегодня. Пример: &tenge')
 	await ctx.send(embed = emb)
 
 # Команда показывает количество денег определённого пользователя.
@@ -117,86 +122,96 @@ async def decrease (ctx, member: discord.Member = None, amount: int = 0):
 			connection.commit()
 			await ctx.send("Вывод {}$ с баланса пользователя {} успешно выполнен.".format(amount, member.mention))
 
-# Показывает курс валют.
+# Показывает курс доллара.
 @client.command()
 
-async def exchange_rates (ctx, amount = None):
+async def dollar (ctx):
 	await ctx.message.delete()
+	URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE&aqs=chrome.0.69i59j69i57j0l5j69i60.4236j1j7&sourceid=chrome&ie=UTF-8"
+	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+		
+	full_page = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(full_page.content, 'html.parser')
+		
+	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+	dollar = convert[0].text
+		
+	await ctx.send("Один доллар равен " + dollar + " рублей.")
 
-	if amount == 'dollar':
-		DOLLAR_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B4%D0%BE&aqs=chrome.0.69i59j69i57j0l5j69i60.4236j1j7&sourceid=chrome&ie=UTF-8"
-		DOLLAR_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-		
-		dollar_page = requests.get(DOLLAR_URL, headers = DOLLAR_HEADERS)
-		dollar_soup = BeautifulSoup(dollar_page.content, 'html.parser')
-		
-		dollar_convert = dollar_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		dollar = dollar_convert[0].text
-		
-		await ctx.send("Один доллар равен " + dollar + " рублей.")
+# Показывает курс евро.
+@client.command()
 
-	elif amount == 'euro':
-		EURO_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%83&aqs=chrome.2.69i57j0l7.4295j0j7&sourceid=chrome&ie=UTF-8"
-		EURO_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-		
-		euro_page = requests.get(EURO_URL, headers = EURO_HEADERS)
-		euro_soup = BeautifulSoup(euro_page.content, 'html.parser')
-		
-		euro_convert = euro_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		euro = euro_convert[0].text
-		
-		await ctx.send("Один евро равен " + euro + " рублей.")
+async def euro (ctx):
+	URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%83&aqs=chrome.2.69i57j0l7.4295j0j7&sourceid=chrome&ie=UTF-8"
+	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+	
+	full_page = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(full_page.content, 'html.parser')
+	
+	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+	euro = convert[0].text
+	
+	await ctx.send("Один евро равен " + euro + " рублей.")
 
-	elif amount == 'bitcoin':
-		BITCOIN_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82&aqs=chrome.0.69i59j69i57j0l6.6197j0j7&sourceid=chrome&ie=UTF-8"
-		BITCOIN_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-		
-		bitcoin_page = requests.get(BITCOIN_URL, headers = BITCOIN_HEADERS)
-		bitcoin_soup = BeautifulSoup(bitcoin_page.content, 'html.parser')
-		
-		bitcoin_convert = bitcoin_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		bitcoin = bitcoin_convert[0].text
-		
-		await ctx.send("Один биткоин равен " + bitcoin + " рублей.")
+# Показывает курс биткоина.
+@client.command()
 
-	elif amount == 'hryvnia':
-		HRYVNIA_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D1%8B&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80&aqs=chrome.0.69i59j69i57j0l6.14705j0j7&sourceid=chrome&ie=UTF-8"
-		HRYVNIA_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-		
-		hryvnia_page = requests.get(HRYVNIA_URL, headers = HRYVNIA_HEADERS)
-		hryvnia_soup = BeautifulSoup(hryvnia_page.content, 'html.parser')
-		
-		hryvnia_convert = hryvnia_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		hryvnia = hryvnia_convert[0].text
-		
-		await ctx.send("Одина гравна равна " + hryvnia + " рублей.")
+async def bitcoin (ctx):
+	URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82&aqs=chrome.0.69i59j69i57j0l6.6197j0j7&sourceid=chrome&ie=UTF-8"
+	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+	
+	full_page = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(full_page.content, 'html.parser')
+	
+	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+	bitcoin = convert[0].text
+	
+	await ctx.send("Один биткоин равен " + bitcoin + " рублей.")
 
-	elif amount == 'shekel':
-		SHEKEL_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8F&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5&aqs=chrome.0.69i59j69i57j69i61l2.13899j1j7&sourceid=chrome&ie=UTF-8"
-		SHEKEL_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-		
-		shekel_page = requests.get(SHEKEL_URL, headers = SHEKEL_HEADERS)
-		shekel_soup = BeautifulSoup(shekel_page.content, 'html.parser')
-		
-		shekel_convert = shekel_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		shekel = shekel_convert[0].text
-		
-		await ctx.send("Один шекель равен " + shekel + " рублей.")
+# Показывает курс гривны.
+@client.command()
 
-	elif amount == 'tenge':
-		TENGE_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD%D0%B3%D0%B5&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD&aqs=chrome.0.69i59j69i57j0l6.3036j0j7&sourceid=chrome&ie=UTF-8"
-		TENGE_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-		
-		tenge_page = requests.get(TENGE_URL, headers = TENGE_HEADERS)
-		tenge_soup = BeautifulSoup(tenge_page.content, 'html.parser')
-		
-		tenge_convert = tenge_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		tenge = tenge_convert[0].text
-		
-		await ctx.send("Один тенеге равен " + tenge + " рублей.")
+async def hryvnia (ctx):
+	URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D1%8B&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80&aqs=chrome.0.69i59j69i57j0l6.14705j0j7&sourceid=chrome&ie=UTF-8"
+	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+	
+	full_page = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(full_page.content, 'html.parser')
+	
+	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+	hryvnia = hryvnia_convert[0].text
+	
+	await ctx.send("Одина гравна равна " + hryvnia + " рублей.")
 
-	else:
-		await ctx.send(f"**{ctx.author.mention}**, укажите валюту которую хотите просмотреть.")
+# Показывает курс шекеля.
+@client.command()
+
+async def shekel (ctx):
+	URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8F&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5&aqs=chrome.0.69i59j69i57j69i61l2.13899j1j7&sourceid=chrome&ie=UTF-8"
+	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+	
+	full_page = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(full_page.content, 'html.parser')
+	
+	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+	shekel = convert[0].text
+	
+	await ctx.send("Один шекель равен " + shekel + " рублей.")
+
+# Показывает курс тенге.
+@client.command()
+
+async def tenge (ctx):
+	URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD%D0%B3%D0%B5&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD&aqs=chrome.0.69i59j69i57j0l6.3036j0j7&sourceid=chrome&ie=UTF-8"
+	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+	
+	full_page = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(full_page.content, 'html.parser')
+	
+	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+	tenge = convert[0].text
+	
+	await ctx.send("Один тенеге равен " + tenge + " рублей.")
 
 # Ссылка на Вк.
 @client.command()
