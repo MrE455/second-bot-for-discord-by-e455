@@ -124,76 +124,76 @@ async def exchange_rates (ctx, amount = None):
 	await ctx.message.delete()
 
 	if amount == 'dollar':
-		URL = "https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+&aqs=chrome.1.69i57j0l7.9112j1j7&sourceid=chrome&ie=UTF-8"
-		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+		DOLLAR_URL = "https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+&aqs=chrome.1.69i57j0l7.9112j1j7&sourceid=chrome&ie=UTF-8"
+		DOLLAR_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
-		soup = BeautifulSoup(full_page.content, 'html.parser')
-		full_page = requests.get(URL, headers = HEADERS)
+		dollar_page = requests.get(DOLLAR_URL, headers = DOLLAR_HEADERS)
+		dollar_soup = BeautifulSoup(dollar_page.content, 'html.parser')
 		
-		convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		currency = convert[0].text
+		dollar_convert = dollar_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+		dollar = dollar_convert[0].text
 		
-		await ctx.send("Один доллар равен " + currency + " рублей.")
+		await ctx.send("Один доллар равен " + dollar + " рублей.")
 
 	elif amount == 'euro':
-		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&aqs=chrome..69i57j0l7.2879j1j7&sourceid=chrome&ie=UTF-8"
-		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+		EURO_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&aqs=chrome..69i57j0l7.2879j1j7&sourceid=chrome&ie=UTF-8"
+		EURO_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
-		full_page = requests.get(URL, headers = HEADERS)
-		soup = BeautifulSoup(full_page.content, 'html.parser')
+		euro_page = requests.get(EURO_URL, headers = EURO_HEADERS)
+		euro_soup = BeautifulSoup(euro_page.content, 'html.parser')
 		
-		convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		currency = convert[0].text
+		euro_convert = euro_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+		euro = euro_convert[0].text
 		
-		await ctx.send("Один евро равен " + currency + " рублей.")
+		await ctx.send("Один евро равен " + euro + " рублей.")
 
 	elif amount == 'bitcoin':
-		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82&aqs=chrome.0.0j69i57j0l6.3514j1j7&sourceid=chrome&ie=UTF-8"
-		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+		BITCOIN_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82&aqs=chrome.0.0j69i57j0l6.3514j1j7&sourceid=chrome&ie=UTF-8"
+		BITCOIN_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
-		full_page = requests.get(URL, headers = HEADERS)
-		soup = BeautifulSoup(full_page.content, 'html.parser')
+		bitcoin_page = requests.get(BITCOIN_URL, headers = BITCOIN_HEADERS)
+		bitcoin_soup = BeautifulSoup(bitcoin_page.content, 'html.parser')
 		
-		convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		currency = convert[0].text
+		bitcoin_convert = bitcoin_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+		bitcoin = bitcoin_convert[0].text
 		
-		await ctx.send("Один биткоин равен " + currency + " рублей.")
+		await ctx.send("Один биткоин равен " + bitcoin + " рублей.")
 
 	elif amount == 'hryvnia':
-		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D1%8B&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80&aqs=chrome.1.69i57j0l7.6041j0j7&sourceid=chrome&ie=UTF-8"
-		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+		HRYVNIA_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D1%8B&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80&aqs=chrome.1.69i57j0l7.6041j0j7&sourceid=chrome&ie=UTF-8"
+		HRYVNIA_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
-		full_page = requests.get(URL, headers = HEADERS)
-		soup = BeautifulSoup(full_page.content, 'html.parser')
+		hryvnia_page = requests.get(HRYVNIA_URL, headers = HRYVNIA_HEADERS)
+		hryvnia_soup = BeautifulSoup(hryvnia_page.content, 'html.parser')
 		
-		convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		currency = convert[0].text
+		hryvnia_convert = hryvnia_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+		hryvnia = hryvnia_convert[0].text
 		
-		await ctx.send("Одина гравна равна " + currency + " рублей.")
+		await ctx.send("Одина гравна равна " + hryvnia + " рублей.")
 
 	elif amount == 'shekel':
-		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8F&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5&aqs=chrome.1.69i57j0l7.4277j1j7&sourceid=chrome&ie=UTF-8"
-		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+		SHEKEL_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8F&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5&aqs=chrome.1.69i57j0l7.4277j1j7&sourceid=chrome&ie=UTF-8"
+		SHEKEL_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
-		full_page = requests.get(URL, headers = HEADERS)
-		soup = BeautifulSoup(full_page.content, 'html.parser')
+		shekel_page = requests.get(SHEKEL_URL, headers = SHEKEL_HEADERS)
+		shekel_soup = BeautifulSoup(shekel_page.content, 'html.parser')
 		
-		convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		currency = convert[0].text
+		shekel_convert = shekel_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+		shekel = convert[0].text
 		
-		await ctx.send("Один шекель равен " + currency + " рублей.")
+		await ctx.send("Один шекель равен " + shekel + " рублей.")
 
 	elif amount == 'tenge':
-		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD%D0%B3%D0%B5&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5&aqs=chrome.1.69i57j0l7.2317j1j7&sourceid=chrome&ie=UTF-8"
-		HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+		TENGE_URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD%D0%B3%D0%B5&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5&aqs=chrome.1.69i57j0l7.2317j1j7&sourceid=chrome&ie=UTF-8"
+		TENGE_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
 		
-		full_page = requests.get(URL, headers = HEADERS)
-		soup = BeautifulSoup(full_page.content, 'html.parser')
+		tenge_page = requests.get(TENGE_URL, headers = TENGE_HEADERS)
+		tenge_soup = BeautifulSoup(tenge_page.content, 'html.parser')
 		
-		convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		currency = convert[0].text
+		tenge_convert = tenge_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+		tenge = convert[0].text
 		
-		await ctx.send("Один тенеге равен " + currency + " рублей.")
+		await ctx.send("Один тенеге равен " + tenge + " рублей.")
 
 	else:
 		await ctx.send(f"**{ctx.author.mention}**, укажите валюту которую хотите просмотреть.")
