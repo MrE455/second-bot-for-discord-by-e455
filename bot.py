@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import sqlite3
 import os
+from bs4 import BeautifulSoup
+import requests
 
 PREFIX = '&'
 token = os.environ.get('TOKEN')
@@ -113,6 +115,21 @@ async def decrease (ctx, member: discord.Member = None, amount: int = 0):
 			cursor.execute("UPDATE users SET cash = cash - {} WHERE id = {}".format(amount, member.id))
 			connection.commit()
 			await ctx.send("Вывод {}$ с баланса пользователя {} успешно выполнен.".format(amount, member.mention))
+
+# Показывает курс доллара.
+@client.command()
+
+async def dollar_rate (ctx):
+	URL = "https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+&aqs=chrome.1.69i57j0l7.9112j1j7&sourceid=chrome&ie=UTF-8"
+	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
+	
+	full_page = requests.get(URL, headers = HEADERS)
+	soup = BeautifulSoup(full_page.content, 'html.parser')
+
+	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
+	one_dollar = convert[0].text
+	
+	await ctx.send("Один доллар равен " + one_dollar + " рублей.")
 
 # Ссылка на Вк.
 @client.command()
