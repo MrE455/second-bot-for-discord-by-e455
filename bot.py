@@ -136,7 +136,7 @@ async def dollar (ctx):
 		
 	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
 		
-	await ctx.send("Один доллар равен " + convert[1].text + " рублей.")
+	await ctx.send("Один доллар равен " + convert[0].text + " рублей.")
 
 '''
 # Показывает курс евро.
