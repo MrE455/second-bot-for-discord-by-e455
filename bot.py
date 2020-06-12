@@ -191,7 +191,7 @@ async def exchange_rates (ctx, amount = None):
 		tenge_soup = BeautifulSoup(tenge_page.content, 'html.parser')
 		
 		tenge_convert = tenge_soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-		tenge = convert[0].text
+		tenge = tenge_convert[0].text
 		
 		await ctx.send("Один тенеге равен " + tenge + " рублей.")
 
