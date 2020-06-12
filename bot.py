@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import sqlite3
 import os
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup as BS
 import requests
 
 PREFIX = '&'
