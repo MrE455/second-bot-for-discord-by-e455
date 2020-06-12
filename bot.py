@@ -116,20 +116,48 @@ async def decrease (ctx, member: discord.Member = None, amount: int = 0):
 			connection.commit()
 			await ctx.send("Вывод {}$ с баланса пользователя {} успешно выполнен.".format(amount, member.mention))
 
-# Показывает курс доллара.
+# Показывает курс валют.
 @client.command()
 
-async def dollar_rate (ctx):
-	URL = "https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+&aqs=chrome.1.69i57j0l7.9112j1j7&sourceid=chrome&ie=UTF-8"
+async def exchange_rates (ctx, amount = None):
+	await ctx.message.delete()
 	HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36"}
-	
-	full_page = requests.get(URL, headers = HEADERS)
 	soup = BeautifulSoup(full_page.content, 'html.parser')
-
 	convert = soup.findAll("span", {"class": "DFlfde", "class": "SwHCTb", "data-precision": 2})
-	one_dollar = convert[0].text
-	
-	await ctx.send("Один доллар равен " + one_dollar + " рублей.")
+	currency = convert[0].text
+
+	if amount == 'доллар':
+		URL = "https://www.google.com/search?q=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+%D1%80%D1%83%D0%B1%D0%BB%D1%8E&oq=%D0%B4%D0%BE%D0%BB%D0%BB%D0%B0%D1%80+%D0%BA+&aqs=chrome.1.69i57j0l7.9112j1j7&sourceid=chrome&ie=UTF-8"
+		full_page = requests.get(URL, headers = HEADERS)
+		await ctx.send("Один доллар равен " + currency + " рублей.")
+
+	elif amount == 'евро':
+		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B5%D0%B2%D1%80%D0%BE&aqs=chrome..69i57j0l7.2879j1j7&sourceid=chrome&ie=UTF-8"
+		full_page = requests.get(URL, headers = HEADERS)
+		await ctx.send("Один евро равен " + currency + " рублей.")
+
+	elif amount == 'биткоин':
+		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82%D0%BA%D0%BE%D0%B8%D0%BD%D0%B0&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B1%D0%B8%D1%82&aqs=chrome.0.0j69i57j0l6.3514j1j7&sourceid=chrome&ie=UTF-8"
+		full_page = requests.get(URL, headers = HEADERS)
+		await ctx.send("Один биткоин равен " + currency + " рублей.")
+
+	elif amount == 'гривна':
+		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80%D0%B8%D0%B2%D0%BD%D1%8B&oq=%D0%BA%D1%83%D1%80%D1%81+%D0%B3%D1%80&aqs=chrome.1.69i57j0l7.6041j0j7&sourceid=chrome&ie=UTF-8"
+		full_page = requests.get(URL, headers = HEADERS)
+		await ctx.send("Одина гравна равна " + currency + " рублей.")
+
+	elif amount == 'шекель':
+		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5%D0%BA%D0%B5%D0%BB%D1%8F&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%88%D0%B5&aqs=chrome.1.69i57j0l7.4277j1j7&sourceid=chrome&ie=UTF-8"
+		full_page = requests.get(URL, headers = HEADERS)
+		await ctx.send("Один шекель равен " + currency + " рублей.")
+
+	elif amount == 'тенге':
+		URL = "https://www.google.com/search?q=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5%D0%BD%D0%B3%D0%B5&oq=%D0%BA%D1%83%D1%80%D1%81+%D1%82%D0%B5&aqs=chrome.1.69i57j0l7.2317j1j7&sourceid=chrome&ie=UTF-8"
+		full_page = requests.get(URL, headers = HEADERS)
+		await ctx.send("Один тенеге равен " + currency + " рублей.")
+
+	else:
+		await ctx.send(f"**{ctx.author.mention}**, укажите валюту которую хотите просмотреть.")
 
 # Ссылка на Вк.
 @client.command()
