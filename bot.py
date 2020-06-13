@@ -197,7 +197,7 @@ async def rate (ctx, amount = None):
 
 # Добавить роль в магазин.
 @client.command()
-@command.has_permissions(kick_members = True)
+@commands.has_permissions(kick_members = True)
 
 async def add_role_shop (ctx, role: discord.Role = None, cost: int = 0):
 	if role is None:
@@ -212,7 +212,7 @@ async def add_role_shop (ctx, role: discord.Role = None, cost: int = 0):
 
 # Убрать роль из магазина.
 @client.command()
-@command.has_permissions(kick_members = True)
+@commands.has_permissions(kick_members = True)
 
 async def remove_role_shop (ctx, role: discord.Role = None):
 	if role is None:
