@@ -59,10 +59,10 @@ async def help (ctx):
 	emb.add_field(name = '{}addition'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
 	emb.add_field(name = '{}decrease'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
 	emb.add_field(name = '{}rate'.format(PREFIX), value = 'Показать курс валбты из списка: USD, EUR, BYN, KZT, PLN, UAH, GBR, CHF, JPY, CZK, TRY, CNY. Пример: &rate USD')
-	emb.add_field(name = '{}add_role_shop'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет роль в магазин с введённой стоимостью от пользователя. Пример: &add_role_shop @TestRole 100000')
-	emb.add_field(name = '{}remove_role_shop'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убирает роль из магазина. Пример: &remove_role_shop @TestRole')
-	emb.add_field(name = '{}shop'.format(PREFIX), value = 'Показывает товары магазина.')
-	emb.add_field(name = '{}buy'.format(PREFIX), value = 'Покупает определённую роль которую выберит пользователь. Пример: &buy @TestRole')
+	emb.add_field(name = '{}add_role'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет роль в магазин с введённой стоимостью от пользователя. Пример: &add_role_shop @TestRole 100000')
+	emb.add_field(name = '{}remove_role'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убирает роль из магазина. Пример: &remove_role_shop @TestRole')
+	emb.add_field(name = '{}shop_shop'.format(PREFIX), value = 'Показывает товары магазина.')
+	emb.add_field(name = '{}buy_shop'.format(PREFIX), value = 'Покупает определённую роль которую выберит пользователь. Пример: &buy @TestRole')
 	await ctx.send(embed = emb)
 
 # Команда показывает количество денег определённого пользователя.
@@ -227,7 +227,7 @@ async def remove_role (ctx, role: discord.Role = None):
 # Показать магазин.
 @client.command()
 
-async def shop (ctx):
+async def shop_shop (ctx):
 	await ctx.message.delete()
 	embed = discord.Embed(title = 'Магазин')
 
@@ -242,7 +242,7 @@ async def shop (ctx):
 # Купить что-нибудь в магазине.
 @client.command()
 
-async def buy (ctx, role: discord.Role = None):
+async def buy_shop (ctx, role: discord.Role = None):
 	await ctx.message.delete()
 	if role is None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите роль которую желаете приобристи.")
