@@ -200,7 +200,7 @@ async def rate (ctx, amount = None):
 		await ctx.send("Десять китайских юаней равны " + convert[84].text + " рублям.")
 	
 	else:
-		await ctx.send(f"**{stx.author.mention}**, такой валюты нет в списке.")
+		await ctx.send(f"**{ctx.author.mention}**, такой валюты нет в списке.")
 
 # Запуск бота.
 client.run(token)
