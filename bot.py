@@ -200,6 +200,7 @@ async def rate (ctx, amount = None):
 @commands.has_permissions(kick_members = True)
 
 async def add_role_shop (ctx, role: discord.Role = None, cost: int = 0):
+	await ctx.message.delete()
 	if role is None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите роль которую вы желаете добавить в магазин.")
 	else:
@@ -215,6 +216,7 @@ async def add_role_shop (ctx, role: discord.Role = None, cost: int = 0):
 @commands.has_permissions(kick_members = True)
 
 async def remove_role_shop (ctx, role: discord.Role = None):
+	await ctx.message.delete()
 	if role is None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите роль которую хотите убрать из магазина.")
 	else:
@@ -226,6 +228,7 @@ async def remove_role_shop (ctx, role: discord.Role = None):
 @client.command()
 
 async def shop (ctx):
+	await ctx.message.delete()
 	embed = discord.Embed(title = 'Магазин')
 
 	for row in cursor.execute("SELECT role_id, cost FROM shop WHERE id = {}".format(ctx.guild.id)):
@@ -240,6 +243,7 @@ async def shop (ctx):
 @client.command()
 
 async def buy (ctx, role: discord.Role = None):
+	await ctx.message.delete()
 	if role is None:
 		await ctx.send(f"**{ctx.author.mention}**, укажите роль которую желаете приобристи.")
 	
