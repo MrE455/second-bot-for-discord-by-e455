@@ -59,6 +59,10 @@ async def help (ctx):
 	emb.add_field(name = '{}addition'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет определёному пользователю введённое пользователем количество денег (не больше 1000000 за раз!). Пример: &addition @LOX 100')
 	emb.add_field(name = '{}decrease'.format(PREFIX), value = '(ВНИМАНИЕ только для MODERS и выше) Убавляет определёному пользователю введённое пользователем количество денег (при вводе 666 отнимает все деньги!). Пример: &decrease @LOX 100')
 	emb.add_field(name = '{}rate'.format(PREFIX), value = 'Показать курс валбты из списка: USD, EUR, BYN, KZT, PLN, UAH, GBR, CHF, JPY, CZK, TRY, CNY. Пример: &rate USD')
+	emb.add_field(name = '{}add_role_shop'.format(settings['PREFIX']), value = '(ВНИМАНИЕ только для MODERS и выше) Добавляет роль в магазин с введённой стоимостью от пользователя. Пример: &add_role_shop @TestRole 100000')
+	emb.add_field(name = '{}remove_role_shop'.format(settings['PREFIX']), value = '(ВНИМАНИЕ только для MODERS и выше) Убирает роль из магазина. Пример: &remove_role_shop @TestRole')
+	emb.add_field(name = '{}shop'.format(settings['PREFIX']), value = 'Показывает товары магазина.')
+	emb.add_field(name = '{}buy'.format(settings['PREFIX']), value = 'Покупает определённую роль которую выберит пользователь. Пример: &buy @TestRole')
 	await ctx.send(embed = emb)
 
 # Команда показывает количество денег определённого пользователя.
@@ -190,6 +194,67 @@ async def rate (ctx, amount = None):
 	
 	else:
 		await ctx.send(f"**{ctx.author.mention}**, такой валюты нет в списке.")
+
+# Добавить роль в магазин.
+@client.command()
+@command.has_permissions(kick_members = True)
+
+async def add_role_shop (ctx, role: discord.Role = None, cost: int = 0):
+	if role is None:
+		await ctx.send(f"**{ctx.author.mention}**, укажите роль которую вы желаете добавить в магазин.")
+	else:
+		if cost < 1:
+			await ctx.send(f"**{ctx.author.mention}**, укажите стоимость для данной роли.")
+		else:
+			cursor.execute("INSERT INTO shop VALUES ({}, {}, {})".format(role.id, ctx.guild.id, cost))
+			connection.commit()
+			await ctx.send(f"**{ctx.author.mention}**, роль была добавлена в магазин.")
+
+# Убрать роль из магазина.
+@client.command()
+@command.has_permissions(kick_members = True)
+
+async def remove_role_shop (ctx, role: discord.Role = None):
+	if role is None:
+		await ctx.send(f"**{ctx.author.mention}**, укажите роль которую хотите убрать из магазина.")
+	else:
+		cursor.execute("DELETE FROM shop WHERE role_id = {}".format(role.id))
+		connection.commit()
+		await ctx.send(f"**{ctx.author.mention}**, роль была убрана из магазина.")
+
+# Показать магазин.
+@client.command()
+
+async def shop (ctx):
+	embed = discord.Embed(title = 'Магазин')
+
+	for row in cursor.execute("SELECT role_id, cost FROM shop WHERE id = {}".format(ctx.guild.id)):
+		if ctx.guild.get_role(row[0]) != None:
+			embed.add_field(name = f"Стоимость **{row[1]}$**", value = f"Вы приобритёте роль {ctx.guild.get_role(row[0]).mention}", inline = False)
+		else:
+			pass
+
+	await ctx.send(embed = embed)
+
+# Купить что-нибудь в магазине.
+@client.command()
+
+async def buy (ctx, role: discord.Role = None):
+	if role is None:
+		await ctx.send(f"**{ctx.author.mention}**, укажите роль которую желаете приобристи.")
+	
+	else:
+		if role in ctx.author.roles:
+			await ctx.send(f"**{ctx.author.mention}**, такая роль у вас уже имеется.")
+		
+		elif cursor.execute("SELECT cost FROM shop WHERE role_id = {}".format(role.id)).fetchone()[0] > cursor.execute("SELECT cash FROM users WHERE id = {}".format(ctx.author.id)).fetchone()[0]:
+			await ctx.send(f"**{ctx.author.mention}**, у вас недостаточно средств.")
+		
+		else:
+			await ctx.author.add_roles(role)
+			cursor.execute("UPDATE users SET cash = cash - {0} WHERE id = {1}".format(cursor.execute("SELECT cost FROM shop WHERE role_id = {}".format(role.id)).fetchone()[0], ctx.author.id))
+			connection.commit()
+			await ctx.send(f"**{ctx.author.mention}**, вы приобрели роль.")
 
 # Запуск бота.
 client.run(token)
