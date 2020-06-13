@@ -153,7 +153,7 @@ async def telegram (ctx):
 @client.command()
 
 async def rate (ctx, amount = None):
-	await stx.message.delete()
+	await сtx.message.delete()
 	URL = os.environ.get('url')
 	HEADERS = {"User-Agent": os.environ.get('user-agent')}
 	page = requests.get(URL, headers = HEADERS)
