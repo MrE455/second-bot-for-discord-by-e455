@@ -24,6 +24,8 @@ async def on_ready ():
 	print('[LOG]BOT was connected.')
 	await client.change_presence(status = discord.Status.online, activity = discord.Game('правительство РФ'))
 	cursor.execute("""CREATE TABLE IF NOT EXISTS users (name TEXT, id INT, cash BIGINT, rep INT, lvl INT)""")
+	
+	cursor.execute("""CREATE TABLE IF NOT EXISTS shop (role_id INT, id INT, cost BIGINT)""")
 
 	for guild in client.guilds:
 		for member in guild.members:
